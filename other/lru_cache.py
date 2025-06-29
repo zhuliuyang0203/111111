@@ -1,13 +1,9 @@
 from __future__ import annotations
 
 from collections.abc import Callable
-from typing import Generic, TypeVar
-
-T = TypeVar("T")
-U = TypeVar("U")
 
 
-class DoubleLinkedListNode(Generic[T, U]):
+class DoubleLinkedListNode[T, U]:
     """
     Double Linked List Node built specifically for LRU Cache
 
@@ -28,7 +24,7 @@ class DoubleLinkedListNode(Generic[T, U]):
         )
 
 
-class DoubleLinkedList(Generic[T, U]):
+class DoubleLinkedList[T, U]:
     """
     Double Linked List built specifically for LRU Cache
 
@@ -143,7 +139,7 @@ class DoubleLinkedList(Generic[T, U]):
         return node
 
 
-class LRUCache(Generic[T, U]):
+class LRUCache[T, U]:
     """
     LRU Cache to store a given capacity of data. Can be used as a stand-alone object
     or as a function decorator.
@@ -222,7 +218,6 @@ class LRUCache(Generic[T, U]):
         Return the details for the cache instance
         [hits, misses, capacity, current_size]
         """
-
         return (
             f"CacheInfo(hits={self.hits}, misses={self.miss}, "
             f"capacity={self.capacity}, current size={self.num_keys})"
@@ -240,7 +235,6 @@ class LRUCache(Generic[T, U]):
         >>> 1 in cache
         True
         """
-
         return key in self.cache
 
     def get(self, key: T) -> U | None:
@@ -267,7 +261,6 @@ class LRUCache(Generic[T, U]):
         """
         Sets the value for the input key and updates the Double Linked List
         """
-
         if key not in self.cache:
             if self.num_keys >= self.capacity:
                 # delete first node (oldest) when over capacity
@@ -286,7 +279,6 @@ class LRUCache(Generic[T, U]):
             self.cache[key] = DoubleLinkedListNode(key, value)
             self.list.add(self.cache[key])
             self.num_keys += 1
-
         else:
             # bump node to the end of the list, update value
             node = self.list.remove(self.cache[key])

@@ -10,9 +10,6 @@ connection from the tree to another vertex.
 from __future__ import annotations
 
 from sys import maxsize
-from typing import Generic, TypeVar
-
-T = TypeVar("T")
 
 
 def get_parent_position(position: int) -> int:
@@ -47,7 +44,7 @@ def get_child_right_position(position: int) -> int:
     return (2 * position) + 2
 
 
-class MinPriorityQueue(Generic[T]):
+class MinPriorityQueue[T]:
     """
     Minimum Priority Queue Class
 
@@ -184,7 +181,7 @@ class MinPriorityQueue(Generic[T]):
         self.position_map[node2_elem] = node1_pos
 
 
-class GraphUndirectedWeighted(Generic[T]):
+class GraphUndirectedWeighted[T]:
     """
     Graph Undirected Weighted Class
 
@@ -217,7 +214,7 @@ class GraphUndirectedWeighted(Generic[T]):
         self.connections[node2][node1] = weight
 
 
-def prims_algo(
+def prims_algo[T](
     graph: GraphUndirectedWeighted[T],
 ) -> tuple[dict[T, int], dict[T, T | None]]:
     """
@@ -248,7 +245,6 @@ def prims_algo(
 
     if priority_queue.is_empty():
         return dist, parent
-
     # initialization
     node = priority_queue.extract_min()
     dist[node] = 0
